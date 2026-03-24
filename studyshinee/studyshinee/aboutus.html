@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Study Shinee Software Solution</title>
+    <meta name="description"
+        content="Learn about Study Shinee Software Solution, Pollachi's leading training institute for software development and IT skills.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        .about-hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, #050505 0%, #111 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .about-content p {
+            color: #888;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .mv-card {
+            background: #111;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .mv-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .mv-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .mv-card h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .mv-card p {
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            background: #050505;
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 968px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo" data-aos="fade-down" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            <img src="assets/logo.png" alt="Study Shinee Logo" class="logo-img">
+            <span>Study Shinee</span>
+        </div>
+        <nav data-aos="fade-down" data-aos-delay="100">
+            <ul>
+                <li><a href="index.html#home" onclick="resetHero()">Home</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Internship Program <i
+                            class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="javascript:void(0)" onclick="loadCourse('python', 'internship')"><i
+                                class="fab fa-python"></i>
+                            Python</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('java', 'internship')"><i
+                                class="fab fa-java"></i> Java
+                            Programming</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('webdev', 'internship')"><i
+                                class="fas fa-code"></i> Web
+                            Development</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('ai', 'internship')"><i
+                                class="fas fa-brain"></i> Artificial
+                            Intelligence</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('datascience', 'internship')"><i
+                                class="fas fa-database"></i>
+                            Data Science</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('cloud', 'internship')"><i
+                                class="fas fa-cloud"></i> Cloud
+                            Computing</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('cyber', 'internship')"><i
+                                class="fas fa-shield-alt"></i>
+                            Cyber Security</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('appdev', 'internship')"><i
+                                class="fas fa-mobile-alt"></i>
+                            App Development</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('uiux', 'internship')"><i
+                                class="fas fa-pencil-ruler"></i>
+                            UI/UX Design</a>
+                        <a href="javascript:void(0)" onclick="loadCourse('digital', 'internship')"><i
+                                class="fas fa-bullhorn"></i>
+                            Digital Marketing</a>
+                    </div>
+                </li>
+                <li><a href="aboutus.html" class="active">About Us</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Courses <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="java.html"><i class="fab fa-java"></i> Java</a>
+                        <a href="c_course.html"><i class="fas fa-terminal"></i> C Programming</a> <!-- Updated Link -->
+                        <a href="cpp.html"><i class="fas fa-code"></i> C++ Programming</a>
+                        <a href="python.html"><i class="fab fa-python"></i> Python</a>
+                        <a href="cloud.html"><i class="fas fa-cloud"></i> Cloud</a>
+                        <a href="web-development.html"><i class="fas fa-code"></i> Web Development</a>
+                        <a href="ui-ux.html"><i class="fas fa-pencil-ruler"></i> UI/UX</a>
+                        <a href="fullstack-java.html"><i class="fab fa-java"></i> Fullstack Java</a>
+                        <a href="fullstack-python.html"><i class="fab fa-python"></i> Full Stack Python</a>
+                        <a href="php.html"><i class="fab fa-php"></i> PHP</a>
+                        <a href="csharp.html"><i class="fas fa-hashtag"></i> C#</a>
+                        <a href="sql.html"><i class="fas fa-database"></i> SQL</a>
+                        <a href="tally.html"><i class="fas fa-file-invoice-dollar"></i> Tally</a>
+                        <a href="ai.html"><i class="fas fa-brain"></i> Artificial Intelligence</a>
+                        <a href="data-science.html"><i class="fas fa-database"></i> Data Science</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="index.html#reviews">Testimonials</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions" data-aos="fade-down" data-aos-delay="200">
+            <a href="auth.html" class="btn-primary"
+                style="background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.2); margin-right: 10px;">Login</a>
+            <a href="tel:+917449040249" class="btn-primary">Call Now <i class="fas fa-phone-alt"></i></a>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Fixed Social Sidebar -->
+    <div class="fixed-sidebar-social">
+        <div class="sidebar-text">Connect With Us</div>
+        <div class="social-icons">
+            <a href="https://wa.me/917418540249" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100095239347806" class="facebook" target="_blank"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/studyshineesoftwaresolution" class="instagram" target="_blank"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/110509030" class="linkedin" target="_blank"><i
+                    class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="sidebar-line"></div>
+    </div>
+
+    <main>
+        <!-- About Hero Section -->
+        <section class="about-hero">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-visual" data-aos="fade-right">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="About Study Shinee"
+                            style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                    </div>
+                    <div class="about-content" data-aos="fade-left">
+                        <div class="badge"
+                            style="background: rgba(204, 255, 0, 0.1); color: #ccff00; padding: 8px 15px; border-radius: 50px; display: inline-block; margin-bottom: 20px; font-weight: 600;">
+                            Since 2021</div>
+                        <h2>Pollachi's Top <span class="highlight">Training Institute</span></h2>
+                        <p>Study Shinee Software Solution has been a pioneer in software training and career
+                            development. Over the previous three years, we have become the go-to destination for
+                            students seeking practical, industry-oriented skills in Pollachi.</p>
+                        <p>Our training is designed exactly the way top IT companies work today. We bridge the gap
+                            between academic education and industry requirements by focusing on <span
+                                class="highlight">real-world execution and hands-on practice.</span></p>
+                        <div class="btn-group" style="display: flex; gap: 20px;">
+                            <a href="index.html#courses" class="btn-primary">Explore Courses</a>
+                            <a href="index.html#contact" class="btn-outline"
+                                style="padding: 12px 30px; border-radius: 30px; background: #fff; color: #000; font-weight: 700; border: none;">Contact
+                                Us</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-vision">
+                    <div class="mv-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Our Mission</h3>
+                        <p>To empower aspiring developers with technical expertise and professional confidence through
+                            practical, industry-aligned training, helping them secure their dream roles in the IT
+                            landscape.</p>
+                    </div>
+                    <div class="mv-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-eye"></i>
+                        <h3>Our Vision</h3>
+                        <p>To be the most trusted and innovative software training partner in Southern India, recognized
+                            for creating high-caliber tech talent and fostering a community of lifelong learners.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card" data-aos="fade-up">
+                        <h3><span class="counter" data-target="95">0</span>%</h3>
+                        <p>Placement Success</p>
+                    </div>
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3><span class="counter" data-target="20">0</span>+</h3>
+                        <p>Industry Courses</p>
+                    </div>
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3><span class="counter" data-target="1500">0</span>+</h3>
+                        <p>Students Trained</p>
+                    </div>
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3><span class="counter" data-target="5">0</span>+</h3>
+                        <p>Years Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us (Reused from Home but detailed) -->
+        <section id="why-about" class="section-padding bg-darker">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Educational <span class="highlight">Core Values</span></h2>
+                <div class="services-grid" style="margin-top: 50px;">
+                    <div class="service-card" data-aos="fade-up">
+                        <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Certified Trainers</h3>
+                        <p>Learn from professionals who bring years of corporate experience into the classroom, ensuring
+                            you learn what matters.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon-box"><i class="fas fa-project-diagram"></i></div>
+                        <h3>Live Projects</h3>
+                        <p>We believe in learning by doing. Every module includes a capstone project that mimics
+                            real-world scenarios.</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon-box"><i class="fas fa-briefcase"></i></div>
+                        <h3>Career Support</h3>
+                        <p>From resume building to mock interviews, we provide 360-degree support to launch your career
+                            successfully.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer" style="background: #000; padding: 80px 0 30px;">
+        <div class="container">
+            <div class="footer-wrapper" style="display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 60px;">
+                <div class="footer-brand">
+                    <h2 style="font-size: 2.5rem; color: #fff; margin-bottom: 25px;">Study Shinee</h2>
+                    <p
+                        style="color: #888; line-height: 1.6; font-size: 1.05rem; margin-bottom: 30px; text-align: justify;">
+                        Empowering students with in-demand software skills through practical, hands-on training. Begin
+                        your
+                        journey to a successful IT career with industry experts.
+                    </p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://wa.me/917418540249"
+                            style="width: 45px; height: 45px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; transition: 0.3s;"><i
+                                class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100095239347806"
+                            style="width: 45px; height: 45px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; transition: 0.3s;"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/studyshineesoftwaresolution"
+                            style="width: 45px; height: 45px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; transition: 0.3s;"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/110509030"
+                            style="width: 45px; height: 45px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; transition: 0.3s;"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-contact">
+                    <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 30px;">Contact Info</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="display: flex; gap: 20px; margin-bottom: 25px; align-items: flex-start;">
+                            <i class="fas fa-map-marker-alt"
+                                style="color: #ccff00; font-size: 1.3rem; margin-top: 5px;"></i>
+                            <span style="color: #aaa; line-height: 1.6;">1/17 Lg Complex, V.K.R St,<br>Vengatesa Colony,
+                                Pollachi - 642004</span>
+                        </li>
+                        <li style="display: flex; gap: 20px; margin-bottom: 25px; align-items: center;">
+                            <i class="fas fa-phone-alt" style="color: #ccff00; font-size: 1.2rem;"></i>
+                            <span style="color: #aaa;">+91 7418540249</span>
+                        </li>
+                        <li style="display: flex; gap: 20px; margin-bottom: 25px; align-items: center;">
+                            <i class="fas fa-envelope" style="color: #ccff00; font-size: 1.2rem;"></i>
+                            <span style="color: #aaa;">contact@studyshinee.com</span>
+                        </li>
+                        <li style="display: flex; gap: 20px; margin-bottom: 25px; align-items: center;">
+                            <i class="fas fa-clock" style="color: #ccff00; font-size: 1.2rem;"></i>
+                            <span style="color: #aaa;">Mon - Sat: 9:30 AM - 7:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-form-wrapper">
+                    <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 30px;">Quick Enquiry</h3>
+                    <form class="enquiry-form">
+                        <div style="margin-bottom: 15px;">
+                            <input type="text" placeholder="Your Name"
+                                style="width: 100%; padding: 15px; background: #111; border: 1px solid #222; border-radius: 10px; color: #fff; outline: none;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <input type="tel" placeholder="Phone Number"
+                                style="width: 100%; padding: 15px; background: #111; border: 1px solid #222; border-radius: 10px; color: #fff; outline: none;">
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <textarea placeholder="Message / Course Interest" rows="3"
+                                style="width: 100%; padding: 15px; background: #111; border: 1px solid #222; border-radius: 10px; color: #fff; outline: none; resize: none;"></textarea>
+                        </div>
+                        <button type="submit"
+                            style="width: 100%; padding: 18px; background: #ccff00; color: #000; border: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.3s; text-transform: uppercase;">Send
+                            Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright"
+                style="text-align: center; border-top: 1px solid #111; margin-top: 60px; padding-top: 30px; color: #555; font-size: 0.9rem;">
+                <p>&copy; 2026 Study Shinee Software Solution. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const startCounter = (target) => {
+            const updateCount = () => {
+                const targetValue = +target.getAttribute('data-target');
+                const count = +target.innerText;
+                const inc = targetValue / speed;
+
+                if (count < targetValue) {
+                    target.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 1);
+                } else {
+                    target.innerText = targetValue;
+                }
+            };
+            updateCount();
+        };
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    startCounter(target);
+                    observer.unobserve(target);
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

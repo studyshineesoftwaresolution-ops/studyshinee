@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Study Shinee</title>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .dash-sidebar {
+            width: 250px;
+            background: #111;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dash-logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dash-logo img {
+            height: 35px;
+        }
+
+        .dash-nav a {
+            display: block;
+            padding: 15px;
+            color: #888;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dash-nav a:hover,
+        .dash-nav a.active {
+            background: rgba(204, 255, 0, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dash-content {
+            flex: 1;
+            padding: 40px;
+            background: #0b0b0b;
+        }
+
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary-color), #bfff00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: bold;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #222, #111);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            color: #aaa;
+            max-width: 600px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: #151515;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-card h3 {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            color: #ff4444;
+            cursor: pointer;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dash-sidebar">
+            <div class="dash-logo">
+                <img src="assets/logo.png" alt="Logo">
+                <span>Study Shinee</span>
+            </div>
+
+            <nav class="dash-nav">
+                <a href="#" class="active"><i class="fas fa-home"></i> Overview</a>
+                <a href="#"><i class="fas fa-book"></i> My Courses</a>
+                <a href="#"><i class="fas fa-certificate"></i> Certificates</a>
+                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            </nav>
+
+            <div class="logout-btn" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dash-content">
+            <div class="dash-header">
+                <h3>Dashboard</h3>
+                <div class="user-profile">
+                    <span id="user-email">Loading...</span>
+                    <div class="avatar-circle">U</div>
+                </div>
+            </div>
+
+            <div class="welcome-card">
+                <h2>Welcome Back!</h2>
+                <p>Track your progress, access your course materials, and connect with your mentors all in one place.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Enrolled Courses</h3>
+                    <div class="value">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Hours Learned</h3>
+                    <div class="value">0h</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Certificates</h3>
+                    <div class="value">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-wrapper">
+                <div class="footer-brand">
+                    <h2>Study Shinee</h2>
+                    <p style="text-align: justify;">Empowering students with in-demand software skills through
+                        practical, hands-on training. Begin your journey to a successful IT career with industry
+                        experts.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/917418540249?text=Hello%20I%20am%20interested%20in%20your%20service"
+                            target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100095239347806" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/studyshineesoftwaresolution?igsh=MThubDAxc3E4aHZmeg=="
+                            target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/110509030/admin/dashboard/" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>1/17 Lg Complex, V.K.R St,<br>Vengatesa Colony, Pollachi - 642004</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+91 7418540249</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@studyshinee.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Sat: 9:30 AM - 7:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-form-wrapper">
+                    <h3>Quick Enquiry</h3>
+                    <form class="enquiry-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Message / Course Interest" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Study Shinee Software Solution. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const SUPABASE_URL = 'https://lobuzkivhueqsyjlyiki.supabase.co';
+            const SUPABASE_KEY = 'sb_publishable_C2Jrz75NIy0BUwgkDcA7aw_tYzkuyd3';
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+            // Check Session
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (!session) {
+                // Not logged in, redirect to auth
+                window.location.href = 'auth.html';
+                return;
+            }
+
+            // Display User Info
+            document.getElementById('user-email').innerText = session.user.email;
+
+            // Logout Handler
+            document.getElementById('logout-btn').addEventListener('click', async () => {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+
+</html>

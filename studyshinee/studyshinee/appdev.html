@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>App Development - Study Shinee</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            <img src="assets/logo.png" alt="Study Shinee Logo" class="logo-img">
+            <span>Study Shinee</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <a href="tel:+917418540249" class="btn-primary">Call Now</a>
+        </div>
+    </header>
+    <main>
+        <section class="course-header"
+            style="padding: 180px 0 100px; background: linear-gradient(135deg, #050505 0%, #111 100%);">
+            <div class="container"
+                style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: center;">
+                <div class="hero-text">
+                    <h1 id="detail-title" style="font-size: 4rem; line-height: 1.1; color: #fff;">App Development</h1>
+                    <p id="detail-subtitle" style="color: #888; font-size: 1.25rem;">iOS & Android Track</p>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-card"
+                        style="background: #151515; border: 1px solid #222; border-radius: 30px; padding: 20px;">
+                        <img id="detail-img" src="assets/logo.png" alt="Visual"
+                            style="width: 100%; border-radius: 20px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="course-body" style="padding: 100px 0; background: #050505;">
+            <div class="container" style="display: grid; grid-template-columns: 1.8fr 1fr; gap: 60px;">
+                <div class="course-left">
+                    <h2 class="section-title">Detailed <span class="highlight">Syllabus</span></h2>
+                    <div class="curriculum-timeline" id="detail-modules"></div>
+                    <div id="detail-desc" style="color:#888; line-height:1.7; margin-top:40px;"></div>
+                </div>
+                <div class="course-sidebar-new">
+                    <div class="sticky-box" style="position: sticky; top: 120px;">
+                        <div class="pricing-sidebar-card"
+                            style="background: #fff; border-radius: 30px; padding: 40px; color: #000;">
+                            <ul id="detail-features"></ul>
+                            <a href="#pricing" class="btn-primary"
+                                style="display: block; text-align: center; background: #3b82f6; border-radius: 12px; padding: 18px;">Enroll
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="course-projects-container"></div>
+    </main>
+    <footer class="footer"
+        style="background: #000; padding: 60px 0; border-top: 1px solid #111; color: #555; text-align: center;">
+        <p>&copy; 2026 Study Shinee Software Solution.</p>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        AOS.init();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.loadCourseDetails) window.loadCourseDetails('appdev');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>C / C++ Programming - Study Shinee</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            <img src="assets/logo.png" alt="Study Shinee Logo" class="logo-img">
+            <span>Study Shinee</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <a href="tel:+917449040249" class="btn-primary">Call Now <i class="fas fa-phone-alt"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="course-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> > <a href="index.html#courses">Courses</a> > <span id="bread-title">C
+                        / C++</span>
+                </div>
+                <div class="course-title">
+                    <h1 id="detail-title">C / C++ Programming</h1>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="course-layout">
+                <div class="course-main">
+                    <div class="featured-image" style="border-radius: 20px; overflow: hidden; margin-bottom: 40px;">
+                        <img id="detail-img" src="" alt="Course Image"
+                            style="width: 100%; object-fit: cover; max-height: 400px;">
+                    </div>
+                    <h2 style="font-size: 2rem; color: white; margin-bottom: 20px;">Course Description</h2>
+                    <div id="detail-desc" style="color: #aaa; line-height: 1.8; margin-bottom: 40px;"></div>
+
+                    <h2 style="font-size: 2rem; color: white; margin-bottom: 20px;">Course Curriculum</h2>
+                    <div id="detail-modules"></div>
+                </div>
+
+                <div class="course-sidebar">
+                    <div class="sidebar-card">
+                        <h3 style="color: white; margin-bottom: 20px;">Course Features</h3>
+                        <ul id="detail-features" style="list-style: none; padding: 0; color: #aaa;"></ul>
+                        <button class="btn-primary" style="width: 100%; margin-top: 30px; padding: 15px;"
+                            onclick="window.location.href='contact.html'">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="course-projects-container"></div>
+    </main>
+
+    <footer class="footer"
+        style="background: #000; padding: 60px 0; border-top: 1px solid #111; color: #555; text-align: center;">
+        <p>&copy; 2026 Study Shinee Software Solution. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.loadCourseDetails) {
+                window.loadCourseDetails('cpp');
+            }
+        });
+    </script>
+</body>
+
+</html>
