@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Study Shinee</title>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at top right, #1a1a1a 0%, #000 100%);
+        }
+
+        .auth-card {
+            background: #111;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .auth-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .auth-header p {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .auth-form input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(204, 255, 0, 0.3);
+        }
+
+        .toggle-text {
+            margin-top: 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .toggle-text a {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .error-msg {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+
+<header class="navbar">
+    <div class="logo" data-aos="fade-down" onclick="window.location.href='index.html'" style="cursor: pointer;">
+        <img src="assets/logo.png" alt="Study Shinee Logo" class="logo-img">
+        <span>Study Shinee</span>
+    </div>
+    <nav data-aos="fade-down" data-aos-delay="100">
+        <ul>
+            <li><a href="index.html#home" onclick="resetHero()">Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Internship Program <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="loadCourse('python', 'internship')"><i
+                            class="fab fa-python"></i>
+                        Python</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('java', 'internship')"><i class="fab fa-java"></i>
+                        Java
+                        Programming</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('webdev', 'internship')"><i
+                            class="fas fa-code"></i> Web
+                        Development</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('ai', 'internship')"><i class="fas fa-brain"></i>
+                        Artificial
+                        Intelligence</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('datascience', 'internship')"><i
+                            class="fas fa-database"></i>
+                        Data Science</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('cloud', 'internship')"><i
+                            class="fas fa-cloud"></i> Cloud
+                        Computing</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('cyber', 'internship')"><i
+                            class="fas fa-shield-alt"></i>
+                        Cyber Security</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('appdev', 'internship')"><i
+                            class="fas fa-mobile-alt"></i>
+                        App Development</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('uiux', 'internship')"><i
+                            class="fas fa-pencil-ruler"></i>
+                        UI/UX Design</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('digital', 'internship')"><i
+                            class="fas fa-bullhorn"></i>
+                        Digital Marketing</a>
+                </div>
+            </li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Courses <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="loadCourse('java', 'course')"><i class="fab fa-java"></i>
+                        Java</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('cpp', 'course')"><i class="fas fa-terminal"></i> C
+                        /
+                        C++</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('python', 'course')"><i class="fab fa-python"></i>
+                        Python</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('cloud', 'course')"><i class="fas fa-cloud"></i>
+                        Cloud</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('webdev', 'course')"><i class="fas fa-code"></i>
+                        Web
+                        Development</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('uiux', 'course')"><i
+                            class="fas fa-pencil-ruler"></i>
+                        UI/UX</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('fullstackjava', 'course')"><i
+                            class="fab fa-java"></i>
+                        Fullstack Java</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('fullstackpython', 'course')"><i
+                            class="fab fa-python"></i> Full Stack Python</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('php', 'course')"><i class="fab fa-php"></i>
+                        PHP</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('csharp', 'course')"><i class="fas fa-hashtag"></i>
+                        C#</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('sql', 'course')"><i class="fas fa-database"></i>
+                        SQL</a>
+                    <a href="javascript:void(0)" onclick="loadCourse('tally', 'course')"><i
+                            class="fas fa-file-invoice-dollar"></i> Tally</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="index.html#reviews">Testimonials</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="nav-actions" data-aos="fade-down" data-aos-delay="200">
+        <a href="auth.html" class="btn-primary"
+            style="background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.2); margin-right: 10px;">Login</a>
+        <a href="tel:+917449040249" class="btn-primary">Call Now <i class="fas fa-phone-alt"></i></a>
+        <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2 id="form-title">Welcome Back</h2>
+            <p id="form-subtitle">Login to access your dashboard</p>
+        </div>
+
+        <div id="error-message" class="error-msg"></div>
+
+        <form class="auth-form" id="auth-form">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="auth-btn" id="submit-btn">Login</button>
+        </form>
+
+        <div class="toggle-text">
+            <span id="toggle-prompt">Don't have an account?</span>
+            <a id="toggle-btn">Sign Up</a>
+        </div>
+        <div style="margin-top: 20px;">
+            <a href="index.html" style="color: #666; font-size: 0.8rem;"><i class="fas fa-arrow-left"></i> Back to
+                Home</a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer id="contact" class="footer">
+    <div class="container">
+        <div class="footer-wrapper">
+            <div class="footer-brand">
+                <h2>Study Shinee</h2>
+                <p style="text-align: justify;">Empowering students with in-demand software skills through
+                    practical, hands-on training. Begin your journey to a successful IT career with industry
+                    experts.</p>
+                <div class="social-links">
+                    <a href="https://wa.me/917418540249?text=Hello%20I%20am%20interested%20in%20your%20service"
+                        target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100095239347806" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/studyshineesoftwaresolution?igsh=MThubDAxc3E4aHZmeg=="
+                        target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/110509030/admin/dashboard/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>1/17 Lg Complex, V.K.R St,<br>Vengatesa Colony, Pollachi - 642004</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+91 7418540249</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@studyshinee.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Mon - Sat: 9:30 AM - 7:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-form-wrapper">
+                <h3>Quick Enquiry</h3>
+                <form class="enquiry-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Message / Course Interest" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Study Shinee Software Solution. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    // Inline Auth Logic to keep it isolated for now, utilizing the global Supabase from script.js
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('auth-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const submitBtn = document.getElementById('submit-btn');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const formTitle = document.getElementById('form-title');
+        const formSubtitle = document.getElementById('form-subtitle');
+        const togglePrompt = document.getElementById('toggle-prompt');
+        const errorMsg = document.getElementById('error-message');
+
+        let isLogin = true;
+
+        // Check if supabase is ready
+        // Note: script.js initializes 'window.supabaseAuth' or we can recreate it here.
+        // Relying on script.js to have initialized `supabase` variable if possible, 
+        // but script.js executes inside its own scope or DOMContentLoaded.
+        // Let's create a local client for safety using the keys we know.
+        const SUPABASE_URL = 'https://lobuzkivhueqsyjlyiki.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_C2Jrz75NIy0BUwgkDcA7aw_tYzkuyd3';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        toggleBtn.addEventListener('click', () => {
+            isLogin = !isLogin;
+            if (isLogin) {
+                formTitle.innerText = 'Welcome Back';
+                formSubtitle.innerText = 'Login to access your dashboard';
+                submitBtn.innerText = 'Login';
+                togglePrompt.innerText = "Don't have an account?";
+                toggleBtn.innerText = 'Sign Up';
+            } else {
+                formTitle.innerText = 'Create Account';
+                formSubtitle.innerText = 'Join Study Shinee today';
+                submitBtn.innerText = 'Sign Up';
+                togglePrompt.innerText = "Already have an account?";
+                toggleBtn.innerText = 'Login';
+            }
+            errorMsg.style.display = 'none';
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            submitBtn.innerText = isLogin ? 'Logging in...' : 'Signing up...';
+            submitBtn.disabled = true;
+            errorMsg.style.display = 'none';
+
+            try {
+                const { data, error } = isLogin
+                    ? await supabase.auth.signInWithPassword({ email, password })
+                    : await supabase.auth.signUp({ email, password });
+
+                if (error) throw error;
+
+                if (isLogin) {
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Sign up success
+                    if (data.session) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        // Email confirmation needed usually, but for demo maybe not
+                        alert('Signup successful! Please check your email for verification if enabled, or login.');
+                        // Switch to login
+                        toggleBtn.click();
+                    }
+                }
+
+            } catch (err) {
+                errorMsg.innerText = err.message;
+                errorMsg.style.display = 'block';
+            } finally {
+                submitBtn.innerText = isLogin ? 'Login' : 'Sign Up';
+                submitBtn.disabled = false;
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
